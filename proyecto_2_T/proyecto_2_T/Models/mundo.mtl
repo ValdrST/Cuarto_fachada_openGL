@@ -1,0 +1,209 @@
+# Blender MTL File: 'None'
+# Material Count: 19
+
+newmtl None_BocaTormenta.jpg
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\BocaTormenta.jpg
+
+newmtl None_CordonMedium.jpg
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\CordonMedium.jpg
+
+newmtl None_CordonMedium.jpg.001
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\CordonMedium.jpg
+
+newmtl None_CordonMedium.jpg.002
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\CordonMedium.jpg
+
+newmtl None_CordonMedium.jpg.003
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\CordonMedium.jpg
+
+newmtl None_CordonTop.jpg.001
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\CordonTop.jpg
+
+newmtl None_CordonTop.jpg.002
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\CordonTop.jpg
+
+newmtl None_CordonTop.jpg.003
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\CordonTop.jpg
+
+newmtl None_FloorsRegular0277_1_S.jpg.001
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\Vereda.jpg
+
+newmtl None_FloorsRegular0277_1_S.jpg.002
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\Vereda.jpg
+
+newmtl None_FloorsRegular0277_1_S.jpg.003
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\Vereda.jpg
+
+newmtl None_NONE
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl None_NONE.001
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl None_NONE.002
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl None_RoadTexture2.jpg
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\RoadTexture2.jpg
+
+newmtl None_Roads0069_9_S.jpg
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\Roadstraight.jpg
+
+newmtl None_Roads0069_9_S.jpg.001
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\Roadstraight.jpg
+
+newmtl None_Roads0069_9_S.jpg.002
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\Roadstraight.jpg
+
+newmtl pasto.002
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump C:\\Users\\valdr\\Documents\\proyecto_1_T\\texturas\\pasto-normal.tga
+map_Kd C:\\Users\\valdr\\Documents\\proyecto_1_T\\texturas\\pasto.tga

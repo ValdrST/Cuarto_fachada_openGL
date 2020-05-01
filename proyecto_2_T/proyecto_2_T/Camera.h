@@ -6,11 +6,28 @@
 #include <gtc/matrix_transform.hpp>
 
 #include <glfw3.h>
-
+/**
+ * @brief Clase camara
+ * 
+ */
 class Camera
 {
 public:
+	/**
+	 * @brief Construye un nuevo objeto de camara
+	 * 
+	 */
 	Camera();
+	/**
+	 * @brief Construye un camara recibiendo parametros
+	 * 
+	 * @param startPosition Posicion de inicio
+	 * @param startUp Up
+	 * @param startYaw Yaw
+	 * @param startPitch Pitch
+	 * @param startMoveSpeed Velocidad inicial de movimiento
+	 * @param startTurnSpeed Velocidad inicial de rotacion
+	 */
 	Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed);
 
 	void keyControl(bool* keys, GLfloat deltaTime);
@@ -18,9 +35,10 @@ public:
 	void mouseControlAerea();
 	void mouseControlQuiosco();
 	void keyControlAerea(bool* keys, GLfloat deltaTime);
-	void keyControlAvatar(GLfloat pos_x, GLfloat pos_z);
+	void keyControlAvatar(bool* keys, GLfloat deltaTime);
 	void keyControlQuiosco(bool* keys, GLfloat deltaTime);
 	glm::vec3 getCameraPosition();
+	void setCameraPosition(glm::vec3 pos) { position = pos; };
 	glm::vec3 getCameraDirection();
 	glm::mat4 calculateViewMatrix();
 	
@@ -33,7 +51,7 @@ private:
 	glm::vec3 up;
 	glm::vec3 right;
 	glm::vec3 worldUp;
-
+	GLfloat max_x, min_x, max_y, min_y, max_z, min_z;
 	GLfloat yaw;
 	GLfloat pitch;
 

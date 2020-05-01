@@ -10,7 +10,7 @@ void Model::LoadModel(const std::string & fileName)
 	time_t initial_time = time(NULL);
 	Assimp::Importer importer;//					Pasa de Polygons y Quads a triangulos, modifica orden para el origen, generar normales si el  objeto no tiene, trata v�rtices iguales como 1 solo
 	//scene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
-	scene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_GenSmoothNormals  | aiProcess_FlipUVs);
+	scene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_GenSmoothNormals);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{	
 		printf("Falló en cargar el modelo: %s Error: %s\n", fileName.c_str(), importer.GetErrorString());

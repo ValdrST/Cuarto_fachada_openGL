@@ -207,7 +207,7 @@ int main()
 	mainWindow = Window(1920, 1080); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
 	CreateShaders();
-	camera = Camera(glm::vec3(26.0f, 3.0f, 1.2f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.0f, 0.5f);
+	camera = Camera(glm::vec3(10.0f, 2.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.0f, 0.5f);
 	music = Sound(0.0f, 0.0f, 0.0f);
 	plainTexture = Texture("Textures/plain.png");
 	plainTexture.LoadTextureA();
@@ -220,6 +220,8 @@ int main()
 	Faro->LoadModel("Models/faro.obj");
 	Model *Edificio = new Model();
 	Edificio->LoadModel("Models/facha_principal.obj");
+	Model *Puerta = new Model();
+	Puerta->LoadModel("Models/puerta.obj");
 	GLfloat posiciones_faros[] = {
 	3.0f, 0.0f,-3.5f,
 	3.0f, 0.0f, 4.0f,
@@ -264,14 +266,14 @@ int main()
 		0.0f, 0.0f, 0.0f,
 		0.03f, 0.3f, 0.01f);
 	pointLightCount++;
-	pointLights[5] = PointLight(0.0f, 0.0f, 0.0f,
+	pointLights[5] = PointLight(0.0f, 1.0f, 1.0f,
 		0.0f, 1.0f,
-		0.0f, 0.0f, 0.0f,
+		3.4f, 5.5f, 0.0f,
 		0.03f, 0.3f, 0.01f);
 	pointLightCount++;
-	pointLights[6] = PointLight(0.0f, 0.0f, 0.0f,
+	pointLights[6] = PointLight(0.0f, 1.0f, 1.0f,
 		0.0f, 1.0f,
-		0.0f, 0.0f, 0.0f,
+		3.4f, 3.7f, 0.0f,
 		0.03f, 0.3f, 0.01f);
 	pointLightCount++;
 	pointLights[7] = PointLight(0.0f, 0.0f, 0.0f,
@@ -284,7 +286,7 @@ int main()
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
 		0.0f, 2.0f,
 		0.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
+		1.0f, -0.5f, 0.0f,
 		1.0f, 0.0f, 0.0f,
 		20.0f);
 	spotLightCount++;
@@ -327,6 +329,10 @@ int main()
 			camera.keyControl(mainWindow.getsKeys(), deltaTime);
 			camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 		}
+		if (mainWindow.getCamara() == 1) {
+			camera.keyControlCuartos(mainWindow.getsKeys(), deltaTime);
+			camera.mouseControlCuartos(mainWindow.getXChange(), mainWindow.getYChange());
+		}
 		// Camara en pausa
 		if (mainWindow.getCamara() == 4) {
 			
@@ -343,10 +349,14 @@ int main()
 		}
 		if (dia_flag == 1) {
 			mainLight.setIntensity(0.3f, 0.3f);
+			pointLights[5].SetColor(0.0f, 0.0f, 0.0f);
+			pointLights[6].SetColor(0.0f, 0.0f, 0.0f);
 			skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
 		}
 		else {
 			mainLight.setIntensity(0.0, 0.0);
+			pointLights[5].SetColor(1.0f, 1.0f, 0.5f);
+			pointLights[6].SetColor(1.0f, 1.0f, 0.5f);
 			skybox_noche.DrawSkybox(camera.calculateViewMatrix(), projection);
 		}
 
@@ -387,6 +397,12 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		Edificio->RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Puerta->RenderModel();
 		loadModelArrayFaro(*Faro, posiciones_faros, model, uniformModel, uniformSpecularIntensity, uniformShininess, inds_luz_faro, num_posiciones_faros);
 		glUseProgram(0);
 

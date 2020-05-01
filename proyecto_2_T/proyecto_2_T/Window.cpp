@@ -13,7 +13,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 {
 	width = windowWidth;
 	height = windowHeight;
-	camara = 0;
+	camara = 4;
 	muevex;
 	muevey;
 	muevez;
@@ -218,7 +218,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	if (key == GLFW_KEY_C) {
 		if (action == GLFW_RELEASE) {
 			theWindow->camara++;
-			if (theWindow->camara > 3) {
+			if (theWindow->camara > 1) {
 				theWindow->camara = 0;
 			}
 		}

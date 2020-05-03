@@ -21,14 +21,8 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	giroy;
 	giroz;
 	animHelicoptero = false;
-	animKeyHelicoptero = false;
-	animKeyPajaro = false;
-	animPuerta1 = false;
-	animPuerta2 = false;
+	animPuerta = false;
 	statusLight = false;
-	status_luzR = false;
-	status_luzG = false;
-	status_luzB = false;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -120,68 +114,17 @@ bool Window::getAnimHelicoptero() {
 void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode)
 {
 	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
-	if (theWindow->animKeyHelicoptero) {
-		theWindow->animKeyHelicoptero = false;
-	}
-	if (theWindow->animKeyPajaro) {
-		theWindow->animKeyPajaro = false;
-	}
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
-	if (key == GLFW_KEY_K)
-	{
-		theWindow-> muevex -= 0.10f;
-	}
-	if (key == GLFW_KEY_SEMICOLON)
-	{
-		theWindow-> muevex += 0.10f;
-	}
-	if (key == GLFW_KEY_J)
-	{
-		if (action == GLFW_RELEASE) {
-			if (theWindow->status_luzR == true)
-				theWindow->status_luzR = false;
-			else
-				theWindow->status_luzR = true;
-		}
-	}
-	if (key == GLFW_KEY_K)
-	{
-		if (action == GLFW_RELEASE) {
-			if (theWindow->status_luzG == true)
-				theWindow->status_luzG = false;
-			else
-				theWindow->status_luzG = true;
-		}
-	}
-	if (key == GLFW_KEY_L)
-	{
-		if (action == GLFW_RELEASE) {
-			if (theWindow->status_luzB == true)
-				theWindow->status_luzB = false;
-			else
-				theWindow->status_luzB = true;
-		}
-	}
-	if (key == GLFW_KEY_O)
-	{
-		theWindow-> muevez += 0.10f;
-		if (action == GLFW_RELEASE) {
-			if (theWindow->animPuerta2 == true)
-				theWindow->animPuerta2 = false;
-			else
-				theWindow->animPuerta2 = true;
-		}
-	}
 	if (key == GLFW_KEY_P)
 	{
 		if (action == GLFW_RELEASE) {
-			if (theWindow->animPuerta1 == true)
-				theWindow->animPuerta1 = false;
+			if (theWindow->animPuerta == true)
+				theWindow->animPuerta = false;
 			else
-				theWindow->animPuerta1 = true;
+				theWindow->animPuerta = true;
 		}
 	}
 	if (key == GLFW_KEY_F)
@@ -194,30 +137,10 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		}
 	}
 
-	if (key == GLFW_KEY_H)
-	{
-		if (action == GLFW_RELEASE) {
-			if (theWindow->animHelicoptero == true)
-				theWindow->animHelicoptero = false;
-			else
-				theWindow->animHelicoptero = true;
-		}
-	}
-	if (key == GLFW_KEY_1)
-	{
-		if (action == GLFW_RELEASE) {
-			theWindow->animKeyHelicoptero = true;
-		}
-	}
-	if (key == GLFW_KEY_2)
-	{
-		if (action == GLFW_RELEASE) {
-			theWindow->animKeyPajaro = true;
-		}
-	}
 	if (key == GLFW_KEY_C) {
 		if (action == GLFW_RELEASE) {
-			theWindow->camara++;
+			if (!theWindow->camara_pausa)
+				theWindow->camara++;
 			if (theWindow->camara > 1) {
 				theWindow->camara = 0;
 			}
@@ -225,10 +148,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	}
 	if (key == GLFW_KEY_X) {
 		if (action == GLFW_RELEASE) {
-			if (theWindow->camara == 4)
-				theWindow->camara = 0;
-			else
-				theWindow->camara = 4;
+			theWindow->camara_pausa = !theWindow->camara_pausa;
 		}
 	}
 	if (key >= 0 && key < 1024)

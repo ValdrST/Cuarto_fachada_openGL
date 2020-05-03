@@ -29,20 +29,52 @@ public:
 	 * @param startTurnSpeed Velocidad inicial de rotacion
 	 */
 	Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed);
-
+	/**
+	 * @brief Control de teclas para la camara
+	 * Controla la posicion de la camara
+	 * @param keys Arreglo de status del teclado
+	 * @param deltaTime cambio de tiempo
+	 */
 	void keyControl(bool* keys, GLfloat deltaTime);
+	/**
+	 * @brief Control del mouse
+	 * Controla la rotacion de la camara
+	 * @param xChange Cambio del mouse en el eje x del viewport
+	 * @param yChange Cambio del mouse en el eje y del viewport
+	 */
 	void mouseControl(GLfloat xChange, GLfloat yChange);
-	void mouseControlAerea();
-	void mouseControlQuiosco();
-	void keyControlAerea(bool* keys, GLfloat deltaTime);
-	void keyControlAvatar(bool* keys, GLfloat deltaTime);
-	void keyControlQuiosco(bool* keys, GLfloat deltaTime);
+	/**
+	 * @brief Get the Camera Position object
+	 * 
+	 * @return glm::vec3 Vector con la posicion de la camara
+	 */
 	glm::vec3 getCameraPosition();
+	/**
+	 * @brief Set the Limit Position object
+	 * Pone los limites de la camara respecto a su posicion
+	 * @param lim_min Vector con los limites minimos
+	 * @param lim_max Vector con los limites maximos
+	 */
+	void setLimitPosition(glm::vec3 lim_min, glm::vec3 lim_max);
+	/**
+	 * @brief Set the Camera Position object
+	 * Pone una posicion predeterminada a la camara
+	 * @param pos Vector de posicion de la camara
+	 */
 	void setCameraPosition(glm::vec3 pos) { position = pos; };
+	/**
+	 * @brief Get the Camera Direction object
+	 * Retorna la direccion de vision de la camra
+	 * @return glm::vec3 
+	 */
 	glm::vec3 getCameraDirection();
+	/**
+	 * @brief Calula la matriz de view
+	 * 
+	 * @return glm::mat4 
+	 */
 	glm::mat4 calculateViewMatrix();
 	
-
 	~Camera();
 
 private:

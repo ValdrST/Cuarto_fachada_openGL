@@ -59,14 +59,25 @@ Sound music;
 Skybox skybox;
 Skybox skybox_noche;
 
+Model *Mundo;
+Model *Faro;
+Model *Edificio;
+Model *Puerta;
+
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 GLint dia_flag = 0;
+Shader *shader2;
+GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0, uniformSpecularIntensity = 0, uniformShininess = 0, uniformLightSpaceMatrix = 0, uniformShadowMap = 0;
 // Vertex Shader
 static const char* vShader = "shaders/shader_light.vert";
+static const char* vShader2 = "shaders/shader_depth.vert";
 
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
+static const char* fShader2 = "shaders/shader_depth.frag";
+
+
 //c�lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int * indices, unsigned int indiceCount, GLfloat * vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
@@ -101,6 +112,9 @@ void CreateShaders()
 	Shader *shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
+	shader2 = new Shader();
+	shader2->CreateFromFiles(vShader2, fShader2);
+
 }
 
 void loadModelArray(Model objeto, GLfloat* posiciones, glm::mat4 model, GLuint uniformModel, GLuint uniformSpecularIntensity, GLuint uniformShininess, int num_posiciones) {
@@ -202,26 +216,10 @@ void loadModel(Model *model, const char *path) {
 	model->LoadModel(path);
 }
 
-int main()
-{
-	mainWindow = Window(1920, 1080); // 1280, 1024 or 1024, 768
-	mainWindow.Initialise();
-	CreateShaders();
-	camera = Camera(glm::vec3(10.0f, 2.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.0f, 0.5f);
-	music = Sound(0.0f, 0.0f, 0.0f);
-	plainTexture = Texture("Textures/plain.png");
-	plainTexture.LoadTextureA();
-	Material_brillante = Material(4.0f, 256);
-	Material_opaco = Material(0.3f, 4);
-	std::vector<std::thread> threads;
-	Model *Mundo = new Model(); 
-	Mundo->LoadModel("Models/mundo.obj");
-	Model *Faro = new Model();
-	Faro->LoadModel("Models/faro.obj");
-	Model *Edificio = new Model();
-	Edificio->LoadModel("Models/facha_principal.obj");
-	Model *Puerta = new Model();
-	Puerta->LoadModel("Models/puerta.obj");
+
+
+void renderScene(Shader *shader){
+	uniformModel = shader->GetModelLocation();
 	GLfloat posiciones_faros[] = {
 	3.0f, 0.0f,-3.5f,
 	3.0f, 0.0f, 4.0f,
@@ -232,6 +230,54 @@ int main()
 	GLint inds_luz_faro[] = {
 		1,2,3,4
 	};
+	glm::mat4 model(1.0);
+	glm::mat4 modelaux(1.0);
+	model = glm::mat4(1.0);
+	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Mundo->RenderModel();
+	model = glm::mat4(1.0);
+	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Edificio->RenderModel();
+	model = glm::mat4(1.0);
+	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Puerta->RenderModel();
+	loadModelArrayFaro(*Faro, posiciones_faros, model, uniformModel, uniformSpecularIntensity, uniformShininess, inds_luz_faro, num_posiciones_faros);
+}
+
+
+int main()
+{
+	mainWindow = Window(1920, 1080); // 1280, 1024 or 1024, 768
+	mainWindow.Initialise();
+	CreateShaders();
+	camera = Camera(glm::vec3(10.0f, 2.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.0f, 0.5f);
+	glm::mat4 lightSpaceMatrix;
+	glm::mat4 lightProjection;
+	music = Sound(0.0f, 0.0f, 0.0f);
+	plainTexture = Texture("Textures/plain.png");
+	plainTexture.LoadTexture();
+	Material_brillante = Material(4.0f, 256);
+	Material_opaco = Material(0.3f, 4);
+	std::vector<std::thread> threads;
+	Mundo = new Model(); 
+	Mundo->LoadModel("Models/mundo.obj");
+	Faro = new Model();
+	Faro->LoadModel("Models/faro.obj");
+	
+	Edificio = new Model();
+	Edificio->LoadModel("Models/facha_principal.obj");
+	Puerta = new Model();
+	Puerta->LoadModel("Models/puerta.obj");
+	
 	//luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
@@ -291,9 +337,6 @@ int main()
 		20.0f);
 	spotLightCount++;
 
-
-	glm::vec3 posblackhawk = glm::vec3(2.0f, 0.0f, 0.0f);
-
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/hill_lf.png");
 	skyboxFaces.push_back("Textures/Skybox/hill_rt.png");
@@ -313,9 +356,9 @@ int main()
 	skybox = Skybox(skyboxFaces);
 	skybox_noche = Skybox(skyboxFaces_noche);
 
-	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0, uniformSpecularIntensity = 0, uniformShininess = 0;
+	
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 300.0f);
-
+	GLboolean cambioCamara = true;
 	//music.playMusic("sound/gorillaz.mp3");
 	GLint ciclos = 0;
 	//Loop mientras no se cierra la ventana
@@ -325,18 +368,27 @@ int main()
 		lastTime = now;
 		//Recibir eventos del usuario
 		glfwPollEvents();
-		if (mainWindow.getCamara() == 0) {
-			camera.keyControl(mainWindow.getsKeys(), deltaTime);
-			camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
-		}
-		if (mainWindow.getCamara() == 1) {
-			camera.keyControlCuartos(mainWindow.getsKeys(), deltaTime);
-			camera.mouseControlCuartos(mainWindow.getXChange(), mainWindow.getYChange());
-		}
 		// Camara en pausa
-		if (mainWindow.getCamara() == 4) {
-			
-		}
+		if (!mainWindow.getPauseCamera()) {
+			if (mainWindow.getCamara() == 0) {
+				if (cambioCamara) {
+					camera.setCameraPosition(glm::vec3(10.0f, 2.0f, 0.0f));
+					cambioCamara = false;
+				}
+				camera.setLimitPosition(glm::vec3(-16.0f, 0.0f, -16.0f), glm::vec3(16.0f, 16.0f, 16.0f));
+				camera.keyControl(mainWindow.getsKeys(), deltaTime);
+				camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+			}
+			if (mainWindow.getCamara() == 1) {
+				if (!cambioCamara) {
+					camera.setCameraPosition(glm::vec3(10.0f, -40.0f, 0.0f));
+					cambioCamara = true;
+				}
+				camera.setLimitPosition(glm::vec3(-16.0f, -40.0f, -16.0f), glm::vec3(16.0f, -10.0f, 16.0f));
+				camera.keyControl(mainWindow.getsKeys(), deltaTime);
+				camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+			}
+		} 
 
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -359,7 +411,8 @@ int main()
 			pointLights[6].SetColor(1.0f, 1.0f, 0.5f);
 			skybox_noche.DrawSkybox(camera.calculateViewMatrix(), projection);
 		}
-
+		lightProjection = projection;
+		lightSpaceMatrix = lightProjection * camera.calculateViewMatrix();
 		shaderList[0].UseShader();
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
@@ -367,7 +420,9 @@ int main()
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
-
+		uniformShadowMap = shaderList[0].GetShadowMapLocation();
+		uniformLightSpaceMatrix = shaderList[0].GetLightSpaceMatrixLocation();
+		glUniform1i(uniformShadowMap,1);
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
@@ -382,30 +437,10 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-		printf("%f %f %f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-		glm::mat4 model(1.0);
-		glm::mat4 modelaux(1.0);
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Mundo->RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Edificio->RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		Puerta->RenderModel();
-		loadModelArrayFaro(*Faro, posiciones_faros, model, uniformModel, uniformSpecularIntensity, uniformShininess, inds_luz_faro, num_posiciones_faros);
+		
+		//printf("%f %f %f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);	
+		renderScene(&shaderList[0]);			
 		glUseProgram(0);
-
 		mainWindow.swapBuffers();
 	}
 

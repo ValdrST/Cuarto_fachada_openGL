@@ -2,8 +2,7 @@
 #include <stdio.h>
 Camera::Camera() {}
 
-Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed)
-{
+Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed){
 	position = startPosition;
 	worldUp = startUp;
 	yaw = startYaw;
@@ -20,7 +19,16 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
 
 	update();
 }
+void Camera::setLimitPosition(glm::vec3 lim_min, glm::vec3 lim_max) {
+	min_x = lim_min.x;
+	min_y = lim_min.y;
+	min_z = lim_min.z;
 
+	max_x = lim_max.x;
+	max_y = lim_max.y;
+	max_z = lim_max.z;
+
+}
 void Camera::keyControl(bool* keys, GLfloat deltaTime){
 	if (position[0] > max_x)
 		position[0] = max_x;
@@ -57,67 +65,6 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime){
 	}
 }
 
-void Camera::mouseControlCuartos(GLfloat xChange, GLfloat yChange){
-	xChange *= turnSpeed;
-	yChange *= turnSpeed;
-
-	yaw += xChange;
-	pitch += yChange;
-
-	if (yaw >= 360.0f) {
-		yaw = 0.0f;
-	}
-	if (yaw <= -360.0f) {
-		yaw = 0.0f;
-	}
-	if (pitch > 89.0f)
-	{
-		pitch = 89.0f;
-	}
-
-	if (pitch < -89.0f)
-	{
-		pitch = -89.0f;
-	}
-	//printf("yaw:%f pitch:%f\n",yaw, pitch);
-	update();
-}
-
-void Camera::keyControlCuartos(bool* keys, GLfloat deltaTime){
-	if (position[0] > max_x)
-		position[0] = max_x;
-	else if (position[0] < min_x)
-		position[0] = min_x;
-	if (position[1] > max_y - 40.0f)
-		position[1] = max_y;
-	else if (position[1] < min_y - 50.0f)
-		position[1] = min_y;
-	if (position[2] > max_z)
-		position[2] = max_z;
-	else if (position[2] < min_z)
-		position[2] = min_z;
-	GLfloat velocity = moveSpeed * deltaTime;
-	if (keys[GLFW_KEY_D])
-	{
-		position[0] += front[1] * velocity;
-	}
-
-	if (keys[GLFW_KEY_A])
-	{
-		position[0] -= front[1] * velocity;
-	}
-
-	if (keys[GLFW_KEY_S])
-	{
-		position[2] -= right[2] * velocity * 100.0f;
-	}
-
-	if (keys[GLFW_KEY_W])
-	{
-		position[2] += right[2] * velocity * 100.0f;
-	}
-}
-
 void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 {
 	xChange *= turnSpeed;
@@ -136,12 +83,10 @@ void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 	{
 		pitch = 89.0f;
 	}
-
 	if (pitch < -89.0f)
 	{
 		pitch = -89.0f;
 	}
-	//printf("yaw:%f pitch:%f\n",yaw, pitch);
 	update();
 }
 

@@ -60,18 +60,10 @@ public:
 	GLfloat getmuevex() { return muevex; }
 	GLfloat getmuevey() { return muevey; }
 	GLfloat getmuevez() { return muevez; }
-	bool getAnimPuerta1() { return animPuerta1; }
-	bool getAnimPuerta2() { return animPuerta2; }
-	bool getAnimKeyHelicoptero() { return animKeyHelicoptero; }
-	bool getAnimKeyPajaro() { return animKeyPajaro; }
-	void setAnimKeyHelicoptero(bool val) {  animKeyHelicoptero = val; }
-	void setAnimKeyPajaro(bool val) { animKeyPajaro = val; }
+	bool getAnimPuerta() { return animPuerta; }
 	int getCamara();
 	bool getAnimHelicoptero();
 	GLboolean OnOffLight() { return statusLight; }
-	GLboolean statusluzR() { return status_luzR; }
-	GLboolean statusluzG() { return status_luzG; }
-	GLboolean statusluzB() { return status_luzB; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
 	/**
@@ -86,6 +78,7 @@ public:
 	 * 
 	 */
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
+	GLboolean getPauseCamera() { return camara_pausa; }
 	
 	~Window();
 private: 
@@ -105,15 +98,18 @@ private:
 	GLfloat girox;
 	GLfloat giroy;
 	GLfloat giroz;
+	/**
+	 * @brief Variable para manejar el perfil de la camara que se va a visualizar
+	 * 
+	 */
 	GLint camara;
-	bool status_luzR;
-	bool status_luzG;
-	bool status_luzB;
+	/**
+	 * @brief Variable para pausar la camara
+	 * 
+	 */
+	GLboolean camara_pausa;
 	bool animHelicoptero;
-	bool animPuerta1;
-	bool animPuerta2;
-	bool animKeyHelicoptero;
-	bool animKeyPajaro;
+	bool animPuerta;
 	bool mouseFirstMoved;
 	/**
 	 * @brief Maneja el teclado

@@ -7,11 +7,11 @@ public:
 	Texture();
 	Texture(const char* FileLoc);
 	bool LoadTexture();
-	bool LoadTextureA();
 	void UseTexture();
 	void ClearTexture();
 	~Texture();
 private: 
+	unsigned int depthMapFBO;
 	GLuint textureID;
 	int width, height, bitDepth;
 	const char *fileLocation;

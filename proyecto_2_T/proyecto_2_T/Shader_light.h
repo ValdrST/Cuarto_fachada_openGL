@@ -67,6 +67,8 @@ public:
 	GLuint GetSpecularIntensityLocation();
 	GLuint GetShininessLocation();
 	GLuint GetEyePositionLocation();
+	GLuint GetLightSpaceMatrixLocation();
+	GLuint GetShadowMapLocation();
 	/**
 	 * @brief Set the Directional Light object
 	 * Recibe un arreglo de luz direccional y la manda al shader
@@ -91,7 +93,7 @@ public:
 	/**
 	 * @brief Usa el shader para renderizar las variables uniformes
 	 * 
-	 */
+	 */	
 	void UseShader();
 	/**
 	 * @brief Limpia datos del shader
@@ -105,7 +107,7 @@ private:
 	int pointLightCount;
 	int spotLightCount;
 	GLuint shaderID, uniformProjection, uniformModel, uniformView, uniformEyePosition,
-		uniformSpecularIntensity, uniformShininess;
+		uniformSpecularIntensity, uniformShininess, uniformLightSpaceMatrix, uniformShadowMap;
 
 	struct {
 		GLuint uniformcolor;

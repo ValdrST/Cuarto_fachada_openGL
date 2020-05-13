@@ -54,7 +54,7 @@ DirectionalLight mainLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
 
-Sound music;
+Sound *music = new Sound(0.0f, 0.0f, 0.0f);
 
 Skybox skybox;
 Skybox skybox_noche;
@@ -63,9 +63,13 @@ Model *Mundo;
 Model *Faro;
 Model *Edificio;
 Model *Puerta;
+Model *Cuartos;
 
+glm::vec3 posicionCambioDebug;
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
+GLfloat rotPuerta = 0.0f;
+GLfloat puerta_offset = 45.0f;
 GLint dia_flag = 0;
 Shader *shader2;
 GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0, uniformSpecularIntensity = 0, uniformShininess = 0, uniformLightSpaceMatrix = 0, uniformShadowMap = 0;
@@ -216,6 +220,34 @@ void loadModel(Model *model, const char *path) {
 	model->LoadModel(path);
 }
 
+/**
+ * @brief Animacion simple
+ *
+ * @param pos Posicion a modificar
+ * @param pos_final Posicion final
+ * @param offset Paso de movimiento
+ * @param FX Datos del archivo de efecto de sonido
+ * @param status_FX Status de efecto de sonido, evita que se reproduzca mas veces de lo necesario
+ */
+void animacion_simple(GLfloat *pos, GLfloat pos_final, GLfloat offset, const char* FX, bool *status_FX) {
+	if (FX != NULL && status_FX != NULL) {
+		if (!*status_FX) {
+			music->playFX(FX);
+			*status_FX = true;
+		}
+	}
+	if (pos_final < *pos) {
+		if (*pos >= pos_final)
+			*pos -= offset * deltaTime;
+	}
+	else {
+		if (*pos <= pos_final)
+			*pos += offset * deltaTime;
+
+	}
+
+}
+
 
 
 void renderScene(Shader *shader){
@@ -238,18 +270,34 @@ void renderScene(Shader *shader){
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Mundo->RenderModel();
+
 	model = glm::mat4(1.0);
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Edificio->RenderModel();
+
+	model = glm::mat4(1.0);
+	modelaux = glm::mat4(1.0);
+	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+	model = glm::translate(model, glm::vec3(2.5f, 0.0f, 0.45f));
+	model = glm::rotate(model, glm::radians(rotPuerta), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelaux = model;
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	model = modelaux;
+	//model = glm::translate(model, posicionCambioDebug);
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.30f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Puerta->RenderModel();
+
 	model = glm::mat4(1.0);
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-	Puerta->RenderModel();
+	Cuartos->RenderModel();
 	loadModelArrayFaro(*Faro, posiciones_faros, model, uniformModel, uniformSpecularIntensity, uniformShininess, inds_luz_faro, num_posiciones_faros);
 }
 
@@ -262,7 +310,6 @@ int main()
 	camera = Camera(glm::vec3(10.0f, 2.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.0f, 0.5f);
 	glm::mat4 lightSpaceMatrix;
 	glm::mat4 lightProjection;
-	music = Sound(0.0f, 0.0f, 0.0f);
 	plainTexture = Texture("Textures/plain.png");
 	plainTexture.LoadTexture();
 	Material_brillante = Material(4.0f, 256);
@@ -277,7 +324,8 @@ int main()
 	Edificio->LoadModel("Models/facha_principal.obj");
 	Puerta = new Model();
 	Puerta->LoadModel("Models/puerta.obj");
-	
+	Cuartos = new Model();
+	Cuartos->LoadModel("Models/Cuartos.obj");
 	//luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
@@ -360,6 +408,7 @@ int main()
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 300.0f);
 	GLboolean cambioCamara = true;
 	//music.playMusic("sound/gorillaz.mp3");
+	// Ciclos
 	GLint ciclos = 0;
 	//Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose()){
@@ -368,6 +417,7 @@ int main()
 		lastTime = now;
 		//Recibir eventos del usuario
 		glfwPollEvents();
+		posicionCambioDebug = glm::vec3(mainWindow.getCambioX(), mainWindow.getCambioY(), mainWindow.getCambioZ());
 		// Camara en pausa
 		if (!mainWindow.getPauseCamera()) {
 			if (mainWindow.getCamara() == 0) {
@@ -389,7 +439,12 @@ int main()
 				camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 			}
 		} 
-
+		if(mainWindow.getAnimPuerta()) {
+			animacion_simple(&rotPuerta, 90.0f, puerta_offset / 4, NULL, NULL);
+		}
+		else {
+			animacion_simple(&rotPuerta, 0.0f, puerta_offset, NULL, NULL);
+		}
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -438,7 +493,7 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 		
-		//printf("%f %f %f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);	
+		printf("%f %f %f\n",posicionCambioDebug.x,posicionCambioDebug.y,posicionCambioDebug.z);	
 		renderScene(&shaderList[0]);			
 		glUseProgram(0);
 		mainWindow.swapBuffers();

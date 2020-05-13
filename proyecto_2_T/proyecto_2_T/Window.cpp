@@ -13,7 +13,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 {
 	width = windowWidth;
 	height = windowHeight;
-	camara = 4;
+	camara = 0;
 	animPuerta = false;
 	statusLight = false;
 	cambioX = 0.0f;
@@ -114,6 +114,24 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
+	if (key == GLFW_KEY_KP_8){
+		theWindow -> cambioX += 0.01f;
+	}
+	if (key == GLFW_KEY_KP_2){
+		theWindow -> cambioX -= 0.01f;
+	}
+	if (key == GLFW_KEY_KP_6){
+		theWindow -> cambioY += 0.01f;
+	}
+	if (key == GLFW_KEY_KP_4){
+		theWindow -> cambioY -= 0.01f;
+	}
+	if (key == GLFW_KEY_KP_9){
+		theWindow -> cambioZ += 0.01f;
+	}
+	if (key == GLFW_KEY_KP_7){
+		theWindow -> cambioZ -= 0.01f;
 	}
 	if (key == GLFW_KEY_P)
 	{

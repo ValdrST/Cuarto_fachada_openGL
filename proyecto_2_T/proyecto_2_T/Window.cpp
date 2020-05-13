@@ -14,15 +14,11 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	width = windowWidth;
 	height = windowHeight;
 	camara = 4;
-	muevex;
-	muevey;
-	muevez;
-	girox;
-	giroy;
-	giroz;
-	animHelicoptero = false;
 	animPuerta = false;
 	statusLight = false;
+	cambioX = 0.0f;
+	cambioY = 0.0f;
+	cambioZ = 0.0f;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -44,6 +40,7 @@ int Window::Initialise()
 	//para solo usar el core profile de OpenGL y no tener retrocompatibilidad
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_SAMPLES, 2);
 
 	//CREAR VENTANA
 	mainWindow = glfwCreateWindow(width, height, "Proyecto Alameda", NULL, NULL);
@@ -74,7 +71,7 @@ int Window::Initialise()
 		glfwTerminate();
 		return 1;
 	}
-
+	glEnable(GL_MULTISAMPLE);  
 	glEnable(GL_DEPTH_TEST); //HABILITAR BUFFER DE PROFUNDIDAD
 							 // Asignar valores de la ventana y coordenadas
 							 
@@ -136,7 +133,6 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 				theWindow-> statusLight = true;
 		}
 	}
-
 	if (key == GLFW_KEY_C) {
 		if (action == GLFW_RELEASE) {
 			if (!theWindow->camara_pausa)

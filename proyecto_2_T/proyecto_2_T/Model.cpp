@@ -9,7 +9,6 @@ void Model::LoadModel(const std::string & fileName)
 {
 	time_t initial_time = time(NULL);
 	Assimp::Importer importer;//					Pasa de Polygons y Quads a triangulos, modifica orden para el origen, generar normales si el  objeto no tiene, trata v�rtices iguales como 1 solo
-	//scene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
 	scene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_GenSmoothNormals);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{	
@@ -30,7 +29,7 @@ void Model::LoadModel(const std::string & fileName, const std::string & fileName
 	for (int i = 0; i <= 20; i++) {
 		printf("%d %s\n",i,exporter.GetExportFormatDescription(i)->id);
 	}
-	scene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+	scene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_GenSmoothNormals);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		printf("Falló en cargar el modelo: %s Error: %s\n", fileName.c_str(), importer.GetErrorString());
@@ -38,7 +37,7 @@ void Model::LoadModel(const std::string & fileName, const std::string & fileName
 	}
 	LoadNode(scene->mRootNode, scene);
 	LoadMaterials(scene);
-	exporter.Export(scene, format->id, fileNameOut, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+	exporter.Export(scene, format->id, fileNameOut, aiProcess_Triangulate | aiProcess_GenSmoothNormals);
 	importer.FreeScene();
 }
 
@@ -69,7 +68,7 @@ void Model::RenderModel(){
 	for (size_t i = 0; i < MeshList.size(); i++)
 	{
 		unsigned int materialIndex = meshTotex[i];
-		if ((!(materialIndex) < TextureList.size()) && TextureList[materialIndex])
+		if (((!materialIndex) < TextureList.size()) && TextureList[materialIndex])
 		{
 			TextureList[materialIndex]->UseTexture();
 		}

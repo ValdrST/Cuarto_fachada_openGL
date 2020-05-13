@@ -93,7 +93,7 @@ public:
 	/**
 	 * @brief Usa el shader para renderizar las variables uniformes
 	 * 
-	 */	
+	 */
 	void UseShader();
 	/**
 	 * @brief Limpia datos del shader

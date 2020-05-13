@@ -15,19 +15,32 @@ void Keyframe::parse_key_frames() {
 	int ibuff, maxbuff = 0;
 	char buffer[10];
 	float fbuff;
+	#ifdef __unix__
+	kFile = fopen64(nameFile, "r");
+	#elif _WIN64 || _WIN32
 	fopen_s(&kFile, nameFile, "r");
+	#endif
 	if (!kFile) {
 		printf("Error al abrir el archivo %s\n", nameFile);
 		return;
 	}
 	rewind(kFile);
 	while (!feof(kFile)) {
+		#ifdef __unix__
+		fscanf(kFile, "%d",&ibuff);
+		#elif _WIN64 || _WIN32
 		fscanf_s(kFile, "%d",&ibuff);
+		#endif
 		if (ibuff > maxbuff) {
 			maxbuff = ibuff;
 		}
-		fscanf_s(kFile, "%s", buffer);
+		#ifdef __unix__
+		fscanf(kFile, "%s", buffer, 10);
+		fscanf(kFile, "%f", &fbuff);
+		#elif _WIN64 || _WIN32
+		fscanf_s(kFile, "%s", buffer, 10);
 		fscanf_s(kFile, "%f", &fbuff);
+		#endif
 		if (strcmp("mov_x", buffer) == 0) {
 			KeyFrame[ibuff].mov_x = fbuff;
 		}

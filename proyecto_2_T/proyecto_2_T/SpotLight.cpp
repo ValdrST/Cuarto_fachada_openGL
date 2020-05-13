@@ -40,6 +40,10 @@ void SpotLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColourLo
 	glUniform1f(edgeLocation, procEdge);
 }
 
+void SpotLight::SetDirection(glm::vec3 dir){
+	direction = glm::normalize(dir - position);
+}
+
 void SpotLight::SetFlash(glm::vec3 pos, glm::vec3 dir)
 {
 	position = pos;
@@ -49,11 +53,6 @@ void SpotLight::SetFlash(glm::vec3 pos, glm::vec3 dir)
 void SpotLight::SetColor(glm::vec3 col)
 {
 	color = col;
-}
-
-void SpotLight::SetPos(glm::vec3 pos)
-{
-	position = pos;
 }
 
 SpotLight::~SpotLight()

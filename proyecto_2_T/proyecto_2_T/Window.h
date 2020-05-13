@@ -61,8 +61,16 @@ public:
 	GLfloat getmuevey() { return muevey; }
 	GLfloat getmuevez() { return muevez; }
 	bool getAnimPuerta() { return animPuerta; }
+	GLfloat getCambioX() { return cambioX; }
+	GLfloat getCambioY() { return cambioY; }
+	GLfloat getCambioZ() { return cambioZ; }
 	int getCamara();
 	bool getAnimHelicoptero();
+	/**
+	 * @brief Prende y apaga la luz de la linterna de camara
+	 * 
+	 * @return GLboolean 
+	 */
 	GLboolean OnOffLight() { return statusLight; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
@@ -87,6 +95,9 @@ private:
 	bool keys[1024];
 	GLint bufferWidth, bufferHeight;
 	void createCallbacks();
+	GLfloat cambioX;
+	GLfloat cambioY;
+	GLfloat cambioZ;
 	GLfloat lastX;
 	GLfloat lastY;
 	GLfloat xChange;

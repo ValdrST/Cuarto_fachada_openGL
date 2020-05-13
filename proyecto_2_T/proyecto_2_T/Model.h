@@ -10,7 +10,12 @@
 #include <filesystem>
 #include "Mesh.h"
 #include "Texture.h"
-namespace fs = std::experimental::filesystem;
+#ifdef __unix__
+	namespace fs = std::filesystem;
+#elif _WIN64 || _WIN32
+	namespace fs = std::experimental::filesystem;
+#endif
+
 /**
  * @brief Clase Model 
  * 

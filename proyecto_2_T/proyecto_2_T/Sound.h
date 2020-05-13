@@ -26,14 +26,16 @@ public:
 	 * @brief Reproduce musica ambiental en un loop infinito
 	 * 
 	 * @param path Ruta del archivo de audio a reproducir
+	 * @return ISound* Apuntador del audio
 	 */
-	void playMusic(const char* path);
+	ISound* playMusic(const char* path);
 	/**
 	 * @brief Reproduce un efecto de sonido
 	 * 
 	 * @param file Ruta del archivo de audio
+	 * @return ISound* Apuntador del audio
 	 */
-	void playFX(const char* file);
+	ISound* playFX(const char* file);
 	/**
 	 * @brief Destroy the Sound object
 	 * 

@@ -14,11 +14,13 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
 	max_z = 16.0f;
 	min_y = 0.0f;
 	max_y = 15.0f;
+
 	moveSpeed = startMoveSpeed;
 	turnSpeed = startTurnSpeed;
 
 	update();
 }
+
 void Camera::setLimitPosition(glm::vec3 lim_min, glm::vec3 lim_max) {
 	min_x = lim_min.x;
 	min_y = lim_min.y;
@@ -29,6 +31,7 @@ void Camera::setLimitPosition(glm::vec3 lim_min, glm::vec3 lim_max) {
 	max_z = lim_max.z;
 
 }
+
 void Camera::keyControl(bool* keys, GLfloat deltaTime){
 	if (position[0] > max_x)
 		position[0] = max_x;
@@ -87,6 +90,7 @@ void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 	{
 		pitch = -89.0f;
 	}
+	//printf("yaw:%f pitch:%f\n",yaw, pitch);
 	update();
 }
 
@@ -113,7 +117,6 @@ void Camera::update(){
 	up = glm::normalize(glm::cross(right, front));
 	//printf("front:%f %f %fup:%f %f %f\n", front.x, front.y, front.z, up.x, up.y, up.z);
 }
-
 
 Camera::~Camera()
 {

@@ -11,12 +11,14 @@ Sound::Sound(float posx, float posy, float posz){
 		printf("Error en cargar el motor de audio\n");
 }
 
-void Sound::playMusic(const char* file) {
+ISound* Sound::playMusic(const char* file) {
 	engine->setSoundVolume(0.5f);
 	music = engine->play3D(file, vec3df(pos_x, pos_y, pos_z), true, false, false);
+	return music;
 }
-void Sound::playFX(const char* file) {
+ISound* Sound::playFX(const char* file) {
 	music = engine->play3D(file, vec3df(pos_x, pos_y, pos_z), false, false, true);
+	return music;
 }
 
 Sound::~Sound()

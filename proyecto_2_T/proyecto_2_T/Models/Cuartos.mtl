@@ -1,0 +1,490 @@
+# Blender MTL File: 'mundo.blend'
+# Material Count: 45
+
+newmtl Bote_basura
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.266761 0.266761 0.266761
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\plastico_basura.png
+
+newmtl Cable
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\cable.png
+
+newmtl Caja_carton
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.451965 0.147500
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Caja_carton_cinta
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.201901 0.122926 0.034656
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Carcasa_monitor
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.214035 0.214035 0.214035
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\carcasa.png
+
+newmtl Espejo
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Florero
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.029978 0.800000 0.668405
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\Jarron.png
+
+newmtl Lampara
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.712100 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\neon_azul.png
+
+newmtl Madera_clara
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.421722 0.016655
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\madera_clara.png
+
+newmtl Madera_obscura
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.098504 0.052626 0.006837
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\madera_obscura.png
+
+newmtl Material.001
+Ns 323.999994
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\pared_inferior.png
+
+newmtl Mesa
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.189201 0.005146
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\madera_clara.png
+
+newmtl Monitor
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\vidrio.png
+
+newmtl Negro_plastico
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\cable.png
+
+newmtl None
+Ns 500
+Ka 0.8 0.8 0.8
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl Papel
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\hojas.png
+
+newmtl Pared_yeso
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\yeso.png
+
+newmtl Piso_superior
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\madera_obscura.png
+
+newmtl Porcelana
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\yeso.png
+
+newmtl Porta_retrato
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\pintura_5.png
+
+newmtl Poster_1
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.054969 0.054969 0.054969
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\poster_blanco_2.png
+
+newmtl Poster_2
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.579521 0.579521
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\poster_blanco.png
+
+newmtl Poster_3
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.000000 0.017743
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\poster_rojo.png
+
+newmtl Refri
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\blanco_refri.png
+
+newmtl Silla_tela
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.320949 0.363145
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\tela_rosa.png
+
+newmtl Sillon_rosa
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.106039 0.790386
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\tela_rosa.png
+
+newmtl Sofa
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.587247 0.116839
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\tela_beige.png
+
+newmtl Teclado
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\teclado.png
+
+newmtl Vidrio
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\vidrio.png
+
+newmtl alfombra
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl ladrillo
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.000000 0.004474
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\ladrillo.png
+
+newmtl lenya
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.035218 0.010488 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\madera_obscura_plana.png
+
+newmtl libro_2
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.002501 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\cuero_azul.png
+
+newmtl libro_amarillo
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\cuero_amarillo.png
+
+newmtl libro_azul
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\cuero_azul.png
+
+newmtl libro_rojo
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.001252 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\cuero_rojo.png
+
+newmtl madera_libero
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.042027 0.021836 0.003700
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\madera_obscura_plana.png
+
+newmtl madera_sillon
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.080012 0.030961 0.002744
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\madera_obscura.png
+
+newmtl metal
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.195988 0.195988 0.195988
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\metal.png
+
+newmtl papel
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\hojas.png
+
+newmtl pintura_1
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\pintura_1.png
+
+newmtl pintura_2
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\pintura_2.png
+
+newmtl pintura_3
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\pintura_3.png
+
+newmtl pintura_4
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\pintura_4.png
+
+newmtl piso
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.252943 0.146799 0.006743
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\piso_inferior.png

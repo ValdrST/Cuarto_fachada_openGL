@@ -64,13 +64,18 @@ Model *Faro;
 Model *Edificio;
 Model *Puerta;
 Model *Cuartos;
+Model *Cajon;
 
+glm::vec3 perimMin(-2.0f,0.0f,-1.8f);
+glm::vec3 perimMax(2.4f,9.0f,2.0f);
 glm::vec3 posicionCambioDebug;
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
-GLfloat rotPuerta = 0.0f;
+GLfloat rotPuerta = 10.0f;
 GLfloat puerta_offset = 45.0f;
+
 GLint dia_flag = 0;
+GLboolean luz_faro = false;
 Shader *shader2;
 GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0, uniformSpecularIntensity = 0, uniformShininess = 0, uniformLightSpaceMatrix = 0, uniformShadowMap = 0;
 // Vertex Shader
@@ -171,7 +176,7 @@ void loadModelArrayFaro(Model objeto, GLfloat* posiciones, glm::mat4 model, GLui
 			model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 			model = glm::translate(model, posicion);
 			pointLights[iL].SetPosition(posicion.x, 2.8f, posicion.z);
-			if (dia_flag == 0)
+			if(luz_faro)
 				pointLights[iL].SetColor(1.0f, 1.0f, 1.0f);
 			else
 				pointLights[iL].SetColor(0.0f, 0.0f, 0.0f);
@@ -248,6 +253,16 @@ void animacion_simple(GLfloat *pos, GLfloat pos_final, GLfloat offset, const cha
 
 }
 
+GLboolean isInPerimeter(glm::vec3 posAct, glm::vec3 posMin, glm::vec3 posMax){
+	if(posAct.x <= posMax.x && posAct.x >= posMin.x && 
+		posAct.y <= posMax.y && posAct.y >= posMin.y && 
+		posAct.z <= posMax.z && posAct.z >= posMin.z){
+			return true;
+
+	}
+	return false;
+}
+
 
 
 void renderScene(Shader *shader){
@@ -298,6 +313,13 @@ void renderScene(Shader *shader){
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Cuartos->RenderModel();
+	
+	model = glm::mat4(1.0);
+	model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Cajon->RenderModel();
 	loadModelArrayFaro(*Faro, posiciones_faros, model, uniformModel, uniformSpecularIntensity, uniformShininess, inds_luz_faro, num_posiciones_faros);
 }
 
@@ -326,6 +348,8 @@ int main()
 	Puerta->LoadModel("Models/puerta.obj");
 	Cuartos = new Model();
 	Cuartos->LoadModel("Models/Cuartos.obj");
+	Cajon = new Model();
+	Cajon->LoadModel("Models/cajon.obj");
 	//luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
@@ -336,7 +360,7 @@ int main()
 	
 	// luz puntual
 	pointLights[0] = PointLight(0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f,
+		0.5f, 0.5f,
 		0.0f, 0.0f, 0.0f,
 		0.03f, 0.3f, 0.01f);
 	pointLightCount++;
@@ -440,7 +464,7 @@ int main()
 			}
 		} 
 		if(mainWindow.getAnimPuerta()) {
-			animacion_simple(&rotPuerta, 90.0f, puerta_offset / 4, NULL, NULL);
+			animacion_simple(&rotPuerta, 90.0f, puerta_offset, NULL, NULL);
 		}
 		else {
 			animacion_simple(&rotPuerta, 0.0f, puerta_offset, NULL, NULL);
@@ -458,13 +482,22 @@ int main()
 			mainLight.setIntensity(0.3f, 0.3f);
 			pointLights[5].SetColor(0.0f, 0.0f, 0.0f);
 			pointLights[6].SetColor(0.0f, 0.0f, 0.0f);
+			luz_faro = false;
 			skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
 		}
 		else {
 			mainLight.setIntensity(0.0, 0.0);
 			pointLights[5].SetColor(1.0f, 1.0f, 0.5f);
 			pointLights[6].SetColor(1.0f, 1.0f, 0.5f);
+			luz_faro = true;
 			skybox_noche.DrawSkybox(camera.calculateViewMatrix(), projection);
+		}
+		if(isInPerimeter(camera.getCameraPosition(),perimMin,perimMax)){
+			luz_faro = false;
+			mainLight.setIntensity(0.2f, 0.2f);
+			pointLights[0].SetColor(1.0f, 0.5f, 0.1f);
+			pointLights[5].SetColor(0.0f, 0.0f, 0.0f);
+			pointLights[6].SetColor(0.0f, 0.0f, 0.0f);
 		}
 		lightProjection = projection;
 		lightSpaceMatrix = lightProjection * camera.calculateViewMatrix();
@@ -492,8 +525,8 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-		
-		printf("%f %f %f\n",posicionCambioDebug.x,posicionCambioDebug.y,posicionCambioDebug.z);	
+		printf("%f %f %f\n",camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+		//printf("%f %f %f\n",posicionCambioDebug.x,posicionCambioDebug.y,posicionCambioDebug.z);
 		renderScene(&shaderList[0]);			
 		glUseProgram(0);
 		mainWindow.swapBuffers();

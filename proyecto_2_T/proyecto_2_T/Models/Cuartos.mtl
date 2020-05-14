@@ -1,5 +1,5 @@
 # Blender MTL File: 'mundo.blend'
-# Material Count: 45
+# Material Count: 49
 
 newmtl Bote_basura
 Ns 225.000000
@@ -11,6 +11,17 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\plastico_basura.png
+
+newmtl Bronce
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\bronce.png
 
 newmtl Cable
 Ns 225.000000
@@ -32,6 +43,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\carton.png
 
 newmtl Caja_carton_cinta
 Ns 225.000000
@@ -42,6 +54,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\canela_cinta.png
 
 newmtl Carcasa_monitor
 Ns 225.000000
@@ -53,6 +66,17 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\carcasa.png
+
+newmtl Conector_pared
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\conector_pared.png
 
 newmtl Espejo
 Ns 225.000000
@@ -202,7 +226,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\yeso.png
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\porcelana.png
 
 newmtl Porta_retrato
 Ns 225.000000
@@ -302,6 +326,17 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\teclado.png
+
+newmtl Ventana
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\metal.png
 
 newmtl Vidrio
 Ns 225.000000
@@ -488,3 +523,14 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\piso_inferior.png
+
+newmtl plastico_negro
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\plastico_negro.png

@@ -155,7 +155,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		if (action == GLFW_RELEASE) {
 			if (!theWindow->camara_pausa)
 				theWindow->camara++;
-			if (theWindow->camara > 1) {
+			if (theWindow->camara > 0) {
 				theWindow->camara = 0;
 			}
 		}

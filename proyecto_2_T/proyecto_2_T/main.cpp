@@ -453,15 +453,6 @@ int main()
 				camera.keyControl(mainWindow.getsKeys(), deltaTime);
 				camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 			}
-			if (mainWindow.getCamara() == 1) {
-				if (!cambioCamara) {
-					camera.setCameraPosition(glm::vec3(10.0f, -40.0f, 0.0f));
-					cambioCamara = true;
-				}
-				camera.setLimitPosition(glm::vec3(-16.0f, -40.0f, -16.0f), glm::vec3(16.0f, -10.0f, 16.0f));
-				camera.keyControl(mainWindow.getsKeys(), deltaTime);
-				camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
-			}
 		} 
 		if(mainWindow.getAnimPuerta()) {
 			animacion_simple(&rotPuerta, 90.0f, puerta_offset, NULL, NULL);

@@ -61,11 +61,13 @@ public:
 	GLfloat getmuevey() { return muevey; }
 	GLfloat getmuevez() { return muevez; }
 	bool getAnimPuerta() { return animPuerta; }
+	bool getAnimCajon() { return animCajon; }
+	bool getAnimLibro() { return animLibro; }
+	void setAnimLibro(bool val) {  animLibro = val; }
 	GLfloat getCambioX() { return cambioX; }
 	GLfloat getCambioY() { return cambioY; }
 	GLfloat getCambioZ() { return cambioZ; }
 	int getCamara();
-	bool getAnimHelicoptero();
 	/**
 	 * @brief Prende y apaga la luz de la linterna de camara
 	 * 
@@ -119,8 +121,9 @@ private:
 	 * 
 	 */
 	GLboolean camara_pausa;
-	bool animHelicoptero;
+	bool animCajon;
 	bool animPuerta;
+	bool animLibro;
 	bool mouseFirstMoved;
 	/**
 	 * @brief Maneja el teclado

@@ -15,6 +15,8 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	height = windowHeight;
 	camara = 0;
 	animPuerta = false;
+	animCajon = false;
+	animLibro = false;
 	statusLight = false;
 	cambioX = 0.0f;
 	cambioY = 0.0f;
@@ -104,9 +106,6 @@ GLfloat Window::getYChange()
 	return theChange;
 }
 
-bool Window::getAnimHelicoptero() {
-	return animHelicoptero;
-}
 
 void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode)
 {
@@ -133,13 +132,31 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	if (key == GLFW_KEY_KP_7){
 		theWindow -> cambioZ -= 0.01f;
 	}
-	if (key == GLFW_KEY_P)
+	if (key == GLFW_KEY_1)
 	{
 		if (action == GLFW_RELEASE) {
 			if (theWindow->animPuerta == true)
 				theWindow->animPuerta = false;
 			else
 				theWindow->animPuerta = true;
+		}
+	}
+	if (key == GLFW_KEY_2)
+	{
+		if (action == GLFW_RELEASE) {
+			if (theWindow->animCajon == true)
+				theWindow->animCajon = false;
+			else
+				theWindow->animCajon = true;
+		}
+	}
+	if (key == GLFW_KEY_3)
+	{
+		if (action == GLFW_RELEASE) {
+			if (theWindow->animLibro == true)
+				theWindow->animLibro = false;
+			else
+				theWindow->animLibro = true;
 		}
 	}
 	if (key == GLFW_KEY_F)

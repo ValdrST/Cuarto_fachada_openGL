@@ -1,5 +1,5 @@
 # Blender MTL File: 'mundo.blend'
-# Material Count: 49
+# Material Count: 48
 
 newmtl Bote_basura
 Ns 225.000000
@@ -77,16 +77,6 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\conector_pared.png
-
-newmtl Espejo
-Ns 225.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
 
 newmtl Florero
 Ns 225.000000

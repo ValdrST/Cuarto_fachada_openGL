@@ -65,26 +65,28 @@ Model *Edificio;
 Model *Puerta;
 Model *Cuartos;
 Model *Cajon;
+Model *Espejo;
+Model *Sillon;
+Model *Puerta_refri;
+Model *Libro;
 
 glm::vec3 perimMin(-2.0f,0.0f,-1.8f);
 glm::vec3 perimMax(2.4f,9.0f,2.0f);
 glm::vec3 posicionCambioDebug;
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
-GLfloat rotPuerta = 10.0f;
-GLfloat puerta_offset = 45.0f;
-
+GLfloat rotPuerta = 0.0f;
+GLfloat puerta_offset = 25.0f;
+GLfloat animCajon = 0.0f;
 GLint dia_flag = 0;
 GLboolean luz_faro = false;
-Shader *shader2;
 GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0, uniformSpecularIntensity = 0, uniformShininess = 0, uniformLightSpaceMatrix = 0, uniformShadowMap = 0;
+Keyframe *keyframes_libro = new Keyframe("Keyframes/keyFramesLibro.txt", 60, "Libro");
 // Vertex Shader
 static const char* vShader = "shaders/shader_light.vert";
-static const char* vShader2 = "shaders/shader_depth.vert";
 
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
-static const char* fShader2 = "shaders/shader_depth.frag";
 
 
 //c�lculo del promedio de las normales para sombreado de Phong
@@ -121,9 +123,6 @@ void CreateShaders()
 	Shader *shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
-	shader2 = new Shader();
-	shader2->CreateFromFiles(vShader2, fShader2);
-
 }
 
 void loadModelArray(Model objeto, GLfloat* posiciones, glm::mat4 model, GLuint uniformModel, GLuint uniformSpecularIntensity, GLuint uniformShininess, int num_posiciones) {
@@ -234,21 +233,20 @@ void loadModel(Model *model, const char *path) {
  * @param FX Datos del archivo de efecto de sonido
  * @param status_FX Status de efecto de sonido, evita que se reproduzca mas veces de lo necesario
  */
-void animacion_simple(GLfloat *pos, GLfloat pos_final, GLfloat offset, const char* FX, bool *status_FX) {
+void animacion_simple(GLfloat *pos, GLfloat pos_inic, GLfloat pos_final, GLfloat offset, const char* FX, bool *status_FX) {
 	if (FX != NULL && status_FX != NULL) {
 		if (!*status_FX) {
 			music->playFX(FX);
 			*status_FX = true;
 		}
 	}
-	if (pos_final < *pos) {
-		if (*pos >= pos_final)
+	if (pos_final <= pos_inic) {
+		if (*pos > pos_final)
 			*pos -= offset * deltaTime;
 	}
 	else {
-		if (*pos <= pos_final)
+		if (*pos < pos_final)
 			*pos += offset * deltaTime;
-
 	}
 
 }
@@ -262,8 +260,6 @@ GLboolean isInPerimeter(glm::vec3 posAct, glm::vec3 posMin, glm::vec3 posMax){
 	}
 	return false;
 }
-
-
 
 void renderScene(Shader *shader){
 	uniformModel = shader->GetModelLocation();
@@ -306,20 +302,45 @@ void renderScene(Shader *shader){
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Puerta->RenderModel();
-
 	model = glm::mat4(1.0);
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-	Cuartos->RenderModel();
-	
+	Cuartos->RenderModel(true);
 	model = glm::mat4(1.0);
-	model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(animCajon, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Cajon->RenderModel();
+	model = glm::mat4(1.0);
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-	Cajon->RenderModel();
+	Espejo->RenderModel(true);
+	model = glm::mat4(1.0);
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Sillon->RenderModel();
+	model = glm::mat4(1.0);
+	model = glm::translate(model, glm::vec3(-1.601675f, 2.555f, 0.475860f));
+	model = glm::translate(model, glm::vec3(keyframes_libro->getVal("movX"), keyframes_libro->getVal("movY"), keyframes_libro->getVal("movZ")));
+	model = glm::rotate(model, glm::radians(keyframes_libro->getVal("giroZ")), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::rotate(model, glm::radians(keyframes_libro->getVal("giroY")), glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Libro->RenderModel();
+	model = glm::mat4(1.0);
+	//model = glm::translate(model, glm::vec3(mainWindow.getCambioX(), mainWindow.getCambioY(), mainWindow.getCambioZ()));
+	model = glm::translate(model, glm::vec3(-1.53f, 4.91f, -1.15f));
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Puerta_refri->RenderModel();
 	loadModelArrayFaro(*Faro, posiciones_faros, model, uniformModel, uniformSpecularIntensity, uniformShininess, inds_luz_faro, num_posiciones_faros);
 }
 
@@ -341,7 +362,6 @@ int main()
 	Mundo->LoadModel("Models/mundo.obj");
 	Faro = new Model();
 	Faro->LoadModel("Models/faro.obj");
-	
 	Edificio = new Model();
 	Edificio->LoadModel("Models/facha_principal.obj");
 	Puerta = new Model();
@@ -350,6 +370,14 @@ int main()
 	Cuartos->LoadModel("Models/Cuartos.obj");
 	Cajon = new Model();
 	Cajon->LoadModel("Models/cajon.obj");
+	Espejo = new Model();
+	Espejo->LoadModel("Models/Espejo.obj");
+	Sillon = new Model();
+	Sillon->LoadModel("Models/Sillon.obj");
+	Libro = new Model();
+	Libro->LoadModel("Models/Libro.obj");
+	Puerta_refri = new Model();
+	Puerta_refri->LoadModel("Models/Puerta_refri.obj");
 	//luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
@@ -395,6 +423,11 @@ int main()
 		0.03f, 0.3f, 0.01f);
 	pointLightCount++;
 	pointLights[7] = PointLight(0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f, 0.0f,
+		0.03f, 0.3f, 0.01f);
+	pointLightCount++;
+	pointLights[8] = PointLight(0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f,
 		0.0f, 0.0f, 0.0f,
 		0.03f, 0.3f, 0.01f);
@@ -455,11 +488,20 @@ int main()
 			}
 		} 
 		if(mainWindow.getAnimPuerta()) {
-			animacion_simple(&rotPuerta, 90.0f, puerta_offset, NULL, NULL);
+			animacion_simple(&rotPuerta, 0.0f, 90.0f, puerta_offset, NULL, NULL);
 		}
 		else {
-			animacion_simple(&rotPuerta, 0.0f, puerta_offset, NULL, NULL);
+			animacion_simple(&rotPuerta, 90.0f, 0.0f, puerta_offset, NULL, NULL);
 		}
+		if (mainWindow.getAnimCajon()) {
+			animacion_simple(&animCajon, 0.0f, 0.20f, 1.0f , NULL, NULL);
+		}
+		else {
+			animacion_simple(&animCajon,0.25f, 0.0f, 1.0f, NULL, NULL);
+		}
+		keyframes_libro->inputKeyframes(mainWindow.getAnimLibro());
+		keyframes_libro->animate();
+		mainWindow.setAnimLibro(false);
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -483,12 +525,20 @@ int main()
 			luz_faro = true;
 			skybox_noche.DrawSkybox(camera.calculateViewMatrix(), projection);
 		}
-		if(isInPerimeter(camera.getCameraPosition(),perimMin,perimMax)){
+		if(isInPerimeter(camera.getCameraPosition(), perimMin, perimMax)){
 			luz_faro = false;
 			mainLight.setIntensity(0.2f, 0.2f);
 			pointLights[0].SetColor(1.0f, 0.5f, 0.1f);
 			pointLights[5].SetColor(0.0f, 0.0f, 0.0f);
 			pointLights[6].SetColor(0.0f, 0.0f, 0.0f);
+			pointLights[7].SetColor(0.0f, 0.95f, 1.0f);
+			pointLights[7].SetPosition(2.2f, 7.3f, -0.5f);
+			pointLights[8].SetColor(1.0f, 0.541f, 0.862f);
+			pointLights[8].SetPosition(1.7f, 7.5f, 1.1f);
+			pointLights[8].setIntensity(0.0f, 1.0f);
+		}else{
+			pointLights[7].SetColor(0.0f, 0.0f, 0.0f);
+			pointLights[8].SetColor(0.0f, 0.0f, 0.0f);
 		}
 		lightProjection = projection;
 		lightSpaceMatrix = lightProjection * camera.calculateViewMatrix();
@@ -516,8 +566,8 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-		printf("%f %f %f\n",camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-		//printf("%f %f %f\n",posicionCambioDebug.x,posicionCambioDebug.y,posicionCambioDebug.z);
+		//printf("%ff %ff %ff\n",camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+		printf("Debug: %ff %ff %ff\n",posicionCambioDebug.x,posicionCambioDebug.y,posicionCambioDebug.z);
 		renderScene(&shaderList[0]);			
 		glUseProgram(0);
 		mainWindow.swapBuffers();

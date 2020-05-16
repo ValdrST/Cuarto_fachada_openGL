@@ -65,6 +65,7 @@ void Model::ClearModel()
 }
 
 void Model::RenderModel(){
+
 	for (size_t i = 0; i < MeshList.size(); i++)
 	{
 		unsigned int materialIndex = meshTotex[i];
@@ -73,7 +74,25 @@ void Model::RenderModel(){
 			TextureList[materialIndex]->UseTexture();
 		}
 		MeshList[i]->RenderMesh();
+	}
+}
 
+void Model::RenderModel(bool hasAlpha){
+	if(hasAlpha){
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+	for (size_t i = 0; i < MeshList.size(); i++)
+	{
+		unsigned int materialIndex = meshTotex[i];
+		if (((!materialIndex) < TextureList.size()) && TextureList[materialIndex])
+		{
+			TextureList[materialIndex]->UseTexture();
+		}
+		MeshList[i]->RenderMesh();
+	}
+	if(hasAlpha){
+		glDisable(GL_BLEND);
 	}
 }
 

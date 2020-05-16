@@ -47,6 +47,12 @@ public:
 	 */
 	void RenderModel();
 	/**
+	 * @brief Renderiza el modelo pero con transparencia
+	 * 
+	 * @param hasAlpha 
+	 */
+	void RenderModel(bool hasAlpha);
+	/**
 	 * @brief Limpia los datos del modelo
 	 * 
 	 */

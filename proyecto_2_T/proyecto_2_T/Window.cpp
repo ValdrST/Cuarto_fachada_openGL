@@ -15,8 +15,10 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	height = windowHeight;
 	camara = 0;
 	animPuerta = false;
+	animPuertaRefri = false;
 	animCajon = false;
 	animLibro = false;
+	animSilla = false;
 	statusLight = false;
 	cambioX = 0.0f;
 	cambioY = 0.0f;
@@ -37,8 +39,8 @@ int Window::Initialise()
 		return 1;
 	}
 	//Asignando variables de GLFW y propiedades de ventana
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	//para solo usar el core profile de OpenGL y no tener retrocompatibilidad
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -157,6 +159,24 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 				theWindow->animLibro = false;
 			else
 				theWindow->animLibro = true;
+		}
+	}
+	if (key == GLFW_KEY_4)
+	{
+		if (action == GLFW_RELEASE) {
+			if (theWindow->animPuertaRefri == true)
+				theWindow->animPuertaRefri = false;
+			else
+				theWindow->animPuertaRefri = true;
+		}
+	}
+	if (key == GLFW_KEY_5)
+	{
+		if (action == GLFW_RELEASE) {
+			if (theWindow->animSilla == true)
+				theWindow->animSilla = false;
+			else
+				theWindow->animSilla = true;
 		}
 	}
 	if (key == GLFW_KEY_F)

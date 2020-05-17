@@ -61,9 +61,12 @@ public:
 	GLfloat getmuevey() { return muevey; }
 	GLfloat getmuevez() { return muevez; }
 	bool getAnimPuerta() { return animPuerta; }
+	bool getAnimPuertaRefri() { return animPuertaRefri; }
 	bool getAnimCajon() { return animCajon; }
 	bool getAnimLibro() { return animLibro; }
 	void setAnimLibro(bool val) {  animLibro = val; }
+		bool getAnimSilla() { return animSilla; }
+	void setAnimSilla(bool val) {  animSilla = val; }
 	GLfloat getCambioX() { return cambioX; }
 	GLfloat getCambioY() { return cambioY; }
 	GLfloat getCambioZ() { return cambioZ; }
@@ -124,6 +127,8 @@ private:
 	bool animCajon;
 	bool animPuerta;
 	bool animLibro;
+	bool animSilla;
+	bool animPuertaRefri;
 	bool mouseFirstMoved;
 	/**
 	 * @brief Maneja el teclado

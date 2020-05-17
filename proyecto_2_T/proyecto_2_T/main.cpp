@@ -34,9 +34,8 @@ Proyecto final
 #include "Sound.h"
 #include "Keyframe.h"
 const float toRadians = 3.14159265f / 180.0f;
-float movCoche;
 float movOffset;
-bool avanza;
+bool sentido_puerta_refri = false;
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -69,6 +68,8 @@ Model *Espejo;
 Model *Sillon;
 Model *Puerta_refri;
 Model *Libro;
+Model *Silla_sup;
+Model *Silla_inf;
 
 glm::vec3 perimMin(-2.0f,0.0f,-1.8f);
 glm::vec3 perimMax(2.4f,9.0f,2.0f);
@@ -77,11 +78,13 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 GLfloat rotPuerta = 0.0f;
 GLfloat puerta_offset = 25.0f;
+GLfloat puerta_refri_anim = 0.0f;
 GLfloat animCajon = 0.0f;
 GLint dia_flag = 0;
 GLboolean luz_faro = false;
 GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0, uniformSpecularIntensity = 0, uniformShininess = 0, uniformLightSpaceMatrix = 0, uniformShadowMap = 0;
 Keyframe *keyframes_libro = new Keyframe("Keyframes/keyFramesLibro.txt", 60, "Libro");
+Keyframe *keyframes_silla = new Keyframe("Keyframes/keyFramesSilla.txt", 60, "Silla");
 // Vertex Shader
 static const char* vShader = "shaders/shader_light.vert";
 
@@ -251,6 +254,55 @@ void animacion_simple(GLfloat *pos, GLfloat pos_inic, GLfloat pos_final, GLfloat
 
 }
 
+/**
+ * @brief Rotacion continua
+ *
+ * @param anim_rot Valor a modificar
+ * @param sentido Sentido de la rotacion, solo para uso interno
+ * @param min_rot Minima rotacion
+ * @param max_rot Maxima rotacion
+ * @param offset Paso de rotacion
+ */
+void rotacion_compleja_anim(GLfloat *anim_rot, bool *sentido, GLfloat min_rot, GLfloat max_rot, GLfloat offset) {
+	if (sentido != NULL) {
+		if (*anim_rot <= max_rot && *sentido) {
+			*anim_rot += offset * deltaTime;
+		}
+		else if (*anim_rot >= min_rot && !*sentido) {
+			*anim_rot -= offset * deltaTime;
+		}
+		else {
+			if (*sentido) {
+				*sentido = false;
+				*anim_rot = max_rot;
+			}
+			else {
+				*sentido = true;
+				*anim_rot = min_rot;
+			}
+		}
+	}
+	else {
+		if (max_rot > min_rot) {
+			if (*anim_rot <= max_rot) {
+				*anim_rot += offset * deltaTime;
+			}
+			else {
+				*anim_rot = min_rot;
+			}
+		}
+		else {
+			if (*anim_rot <= max_rot) {
+				*anim_rot -= offset * deltaTime;
+			}
+			else {
+				*anim_rot = max_rot;
+			}
+		}
+
+	}
+}
+
 GLboolean isInPerimeter(glm::vec3 posAct, glm::vec3 posMin, glm::vec3 posMax){
 	if(posAct.x <= posMax.x && posAct.x >= posMin.x && 
 		posAct.y <= posMax.y && posAct.y >= posMin.y && 
@@ -261,7 +313,7 @@ GLboolean isInPerimeter(glm::vec3 posAct, glm::vec3 posMin, glm::vec3 posMax){
 	return false;
 }
 
-void renderScene(Shader *shader){
+void renderScene(Shader *shader) {
 	uniformModel = shader->GetModelLocation();
 	GLfloat posiciones_faros[] = {
 	3.0f, 0.0f,-3.5f,
@@ -336,11 +388,23 @@ void renderScene(Shader *shader){
 	Libro->RenderModel();
 	model = glm::mat4(1.0);
 	//model = glm::translate(model, glm::vec3(mainWindow.getCambioX(), mainWindow.getCambioY(), mainWindow.getCambioZ()));
-	model = glm::translate(model, glm::vec3(-1.53f, 4.91f, -1.15f));
-	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(-1.53f, 4.91f, -1.39f));
+	model = glm::rotate(model, glm::radians(puerta_refri_anim), glm::vec3(0.0f, 1.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Puerta_refri->RenderModel();
+	model = glm::mat4(1.0);
+	modelaux = glm::mat4(1.0);
+	model = glm::translate(model, glm::vec3(keyframes_silla->getVal("movX"),keyframes_silla->getVal("movY"), keyframes_silla->getVal("movZ")));
+	modelaux = model;
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Silla_inf->RenderModel();
+	model = modelaux;
+	model = glm::rotate(model, glm::radians(keyframes_silla->getVal("giroY")), glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+	Silla_sup->RenderModel();
 	loadModelArrayFaro(*Faro, posiciones_faros, model, uniformModel, uniformSpecularIntensity, uniformShininess, inds_luz_faro, num_posiciones_faros);
 }
 
@@ -378,6 +442,10 @@ int main()
 	Libro->LoadModel("Models/Libro.obj");
 	Puerta_refri = new Model();
 	Puerta_refri->LoadModel("Models/Puerta_refri.obj");
+	Silla_sup = new Model();
+	Silla_sup->LoadModel("Models/Silla_sup.obj");
+	Silla_inf = new Model();
+	Silla_inf->LoadModel("Models/Silla_inf.obj");
 	//luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
@@ -499,9 +567,14 @@ int main()
 		else {
 			animacion_simple(&animCajon,0.25f, 0.0f, 1.0f, NULL, NULL);
 		}
+		if(mainWindow.getAnimPuertaRefri())
+			rotacion_compleja_anim(&puerta_refri_anim, &sentido_puerta_refri, 0.0f, 45.0f, 30.0f);
 		keyframes_libro->inputKeyframes(mainWindow.getAnimLibro());
 		keyframes_libro->animate();
+		keyframes_silla->inputKeyframes(mainWindow.getAnimSilla());
+		keyframes_silla->animate();
 		mainWindow.setAnimLibro(false);
+		mainWindow.setAnimSilla(false);
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -566,7 +639,7 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-		//printf("%ff %ff %ff\n",camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+		printf("%ff %ff %ff\n",camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 		printf("Debug: %ff %ff %ff\n",posicionCambioDebug.x,posicionCambioDebug.y,posicionCambioDebug.z);
 		renderScene(&shaderList[0]);			
 		glUseProgram(0);

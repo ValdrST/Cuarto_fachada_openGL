@@ -1,5 +1,5 @@
 # Blender MTL File: 'mundo.blend'
-# Material Count: 48
+# Material Count: 47
 
 newmtl Bote_basura
 Ns 225.000000
@@ -89,6 +89,17 @@ d 1.000000
 illum 2
 map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\Jarron.png
 
+newmtl Fuego
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\fuego.png
+
 newmtl Lampara
 Ns 225.000000
 Ka 1.000000 1.000000 1.000000
@@ -154,17 +165,6 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\vidrio.png
-
-newmtl Negro_plastico
-Ns 225.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.000000 0.000000 0.000000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\cable.png
 
 newmtl None
 Ns 500
@@ -272,17 +272,6 @@ Ni 1.450000
 d 1.000000
 illum 2
 map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\blanco_refri.png
-
-newmtl Silla_tela
-Ns 225.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.320949 0.363145
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 2
-map_Kd C:\\Users\\valdr\\Documents\\Cuarto_fachada_openGL\\proyecto_2_T\\proyecto_2_T\\Textures\\tela_rosa.png
 
 newmtl Sillon_rosa
 Ns 225.000000

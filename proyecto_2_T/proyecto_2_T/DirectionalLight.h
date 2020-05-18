@@ -1,6 +1,9 @@
 #pragma once
 #include "Light.h"
-
+/**
+ * @brief Clase de la luz direccional
+ * 
+ */
 class DirectionalLight :
 	public Light
 {

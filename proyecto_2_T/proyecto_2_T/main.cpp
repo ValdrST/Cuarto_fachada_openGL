@@ -57,7 +57,7 @@ Sound *music = new Sound(0.0f, 0.0f, 0.0f);
 
 Skybox skybox;
 Skybox skybox_noche;
-
+// Aqui inicial los modelos
 Model *Mundo;
 Model *Faro;
 Model *Edificio;
@@ -91,8 +91,16 @@ static const char* vShader = "shaders/shader_light.vert";
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
 
-
-//c�lculo del promedio de las normales para sombreado de Phong
+/**
+ * @brief Calculo del promedio de las normales para sombreado Phong
+ * 
+ * @param indices 
+ * @param indiceCount 
+ * @param vertices 
+ * @param verticeCount 
+ * @param vLength 
+ * @param normalOffset 
+ */
 void calcAverageNormals(unsigned int * indices, unsigned int indiceCount, GLfloat * vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
 {
@@ -120,14 +128,27 @@ void calcAverageNormals(unsigned int * indices, unsigned int indiceCount, GLfloa
 		vertices[nOffset] = vec.x; vertices[nOffset + 1] = vec.y; vertices[nOffset + 2] = vec.z;
 	}
 }
-
+/**
+ * @brief Crea shaders 
+ * 
+ */
 void CreateShaders()
 {
 	Shader *shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
-
+/**
+ * @brief Carga una matriz de modelos de acuerdo a un arreglo de posiciones 
+ * 
+ * @param objeto 
+ * @param posiciones 
+ * @param model 
+ * @param uniformModel 
+ * @param uniformSpecularIntensity 
+ * @param uniformShininess 
+ * @param num_posiciones 
+ */
 void loadModelArray(Model objeto, GLfloat* posiciones, glm::mat4 model, GLuint uniformModel, GLuint uniformSpecularIntensity, GLuint uniformShininess, int num_posiciones) {
 	glm::vec3 posicion;
 	int i_aux = 0;
@@ -155,7 +176,18 @@ void loadModelArray(Model objeto, GLfloat* posiciones, glm::mat4 model, GLuint u
 
 	}
 }
-
+/**
+ * @brief Carga faros o modelos con luz puntual asociada
+ * 
+ * @param objeto 
+ * @param posiciones 
+ * @param model 
+ * @param uniformModel 
+ * @param uniformSpecularIntensity 
+ * @param uniformShininess 
+ * @param ind_point_lights 
+ * @param num_posiciones 
+ */
 void loadModelArrayFaro(Model objeto, GLfloat* posiciones, glm::mat4 model, GLuint uniformModel, GLuint uniformSpecularIntensity, GLuint uniformShininess, GLint* ind_point_lights, int num_posiciones) {
 	glm::vec3 posicion;
 	int i_aux = 0;
@@ -191,7 +223,17 @@ void loadModelArrayFaro(Model objeto, GLfloat* posiciones, glm::mat4 model, GLui
 		i_aux++;
 	}
 }
-
+/**
+ * @brief Carga arbustos con transparencia
+ * 
+ * @param meslist 
+ * @param posiciones 
+ * @param model 
+ * @param uniformModel 
+ * @param uniformSpecularIntensity 
+ * @param uniformShininess 
+ * @param num_posiciones 
+ */
 void loadModelArbustoArray(std::vector<Mesh*> meslist, GLfloat* posiciones, glm::mat4 model, GLuint uniformModel, GLuint uniformSpecularIntensity, GLuint uniformShininess, int num_posiciones) {
 	glm::vec3 posicion;
 	int i_aux = 0;
@@ -221,10 +263,6 @@ void loadModelArbustoArray(std::vector<Mesh*> meslist, GLfloat* posiciones, glm:
 		}
 		i_aux++;
 	}
-}
-
-void loadModel(Model *model, const char *path) {
-	model->LoadModel(path);
 }
 
 /**
@@ -302,7 +340,14 @@ void rotacion_compleja_anim(GLfloat *anim_rot, bool *sentido, GLfloat min_rot, G
 
 	}
 }
-
+/**
+ * @brief Funcion que compara un perimetro con una posicion
+ * 
+ * @param posAct Posicion actual
+ * @param posMin Posicion minima
+ * @param posMax Posicion maxima
+ * @return GLboolean 
+ */
 GLboolean isInPerimeter(glm::vec3 posAct, glm::vec3 posMin, glm::vec3 posMax){
 	if(posAct.x <= posMax.x && posAct.x >= posMin.x && 
 		posAct.y <= posMax.y && posAct.y >= posMin.y && 
@@ -312,7 +357,11 @@ GLboolean isInPerimeter(glm::vec3 posAct, glm::vec3 posMin, glm::vec3 posMax){
 	}
 	return false;
 }
-
+/**
+ * @brief Dibuja la escena principal usando el shader seleccionado
+ * 
+ * @param shader Apuntador del shader que va a ser usado
+ */
 void renderScene(Shader *shader) {
 	uniformModel = shader->GetModelLocation();
 	GLfloat posiciones_faros[] = {
@@ -349,35 +398,39 @@ void renderScene(Shader *shader) {
 	modelaux = model;
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	model = modelaux;
-	//model = glm::translate(model, posicionCambioDebug);
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.30f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Puerta->RenderModel();
+	
 	model = glm::mat4(1.0);
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Cuartos->RenderModel(true);
+	
 	model = glm::mat4(1.0);
 	model = glm::translate(model, glm::vec3(animCajon, 0.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Cajon->RenderModel();
+	
 	model = glm::mat4(1.0);
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Espejo->RenderModel(true);
+	
 	model = glm::mat4(1.0);
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Sillon->RenderModel();
+	
 	model = glm::mat4(1.0);
 	model = glm::translate(model, glm::vec3(-1.601675f, 2.555f, 0.475860f));
 	model = glm::translate(model, glm::vec3(keyframes_libro->getVal("movX"), keyframes_libro->getVal("movY"), keyframes_libro->getVal("movZ")));
@@ -386,13 +439,14 @@ void renderScene(Shader *shader) {
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Libro->RenderModel();
+
 	model = glm::mat4(1.0);
-	//model = glm::translate(model, glm::vec3(mainWindow.getCambioX(), mainWindow.getCambioY(), mainWindow.getCambioZ()));
 	model = glm::translate(model, glm::vec3(-1.53f, 4.91f, -1.39f));
 	model = glm::rotate(model, glm::radians(puerta_refri_anim), glm::vec3(0.0f, 1.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Puerta_refri->RenderModel();
+	
 	model = glm::mat4(1.0);
 	modelaux = glm::mat4(1.0);
 	model = glm::translate(model, glm::vec3(keyframes_silla->getVal("movX"),keyframes_silla->getVal("movY"), keyframes_silla->getVal("movZ")));
@@ -400,15 +454,21 @@ void renderScene(Shader *shader) {
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Silla_inf->RenderModel();
+	
 	model = modelaux;
 	model = glm::rotate(model, glm::radians(keyframes_silla->getVal("giroY")), glm::vec3(0.0f, 1.0f, 0.0f));
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 	Silla_sup->RenderModel();
+	
 	loadModelArrayFaro(*Faro, posiciones_faros, model, uniformModel, uniformSpecularIntensity, uniformShininess, inds_luz_faro, num_posiciones_faros);
 }
 
-
+/**
+ * @brief Funcion main
+ * 
+ * @return int 
+ */
 int main()
 {
 	mainWindow = Window(1920, 1080); // 1280, 1024 or 1024, 768
@@ -639,8 +699,6 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-		printf("%ff %ff %ff\n",camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-		printf("Debug: %ff %ff %ff\n",posicionCambioDebug.x,posicionCambioDebug.y,posicionCambioDebug.z);
 		renderScene(&shaderList[0]);			
 		glUseProgram(0);
 		mainWindow.swapBuffers();

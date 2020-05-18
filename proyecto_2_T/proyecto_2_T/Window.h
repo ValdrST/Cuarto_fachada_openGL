@@ -53,23 +53,75 @@ public:
 	 */
 	GLfloat getYChange();
 	/**
-	 * @brief 
+	 * @brief Get the Anim Puerta object
+	 * 
+	 * @return true 
+	 * @return false 
+	 */
+	bool getAnimPuerta() { return animPuerta; }
+	/**
+	 * @brief Get the Anim Puerta Refri object
+	 * 
+	 * @return true 
+	 * @return false 
+	 */
+	bool getAnimPuertaRefri() { return animPuertaRefri; }
+	/**
+	 * @brief Get the Anim Cajon object
+	 * 
+	 * @return true 
+	 * @return false 
+	 */
+	bool getAnimCajon() { return animCajon; }
+	/**
+	 * @brief Get the Anim Libro object
+	 * 
+	 * @return true 
+	 * @return false 
+	 */
+	bool getAnimLibro() { return animLibro; }
+	/**
+	 * @brief Set the Anim Libro object
+	 * 
+	 * @param val 
+	 */
+	void setAnimLibro(bool val) {  animLibro = val; }
+	/**
+	 * @brief Get the Anim Silla object
+	 * 
+	 * @return true 
+	 * @return false 
+	 */
+	bool getAnimSilla() { return animSilla; }
+	/**
+	 * @brief Set the Anim Silla object
+	 * 
+	 * @param val 
+	 */
+	void setAnimSilla(bool val) {  animSilla = val; }
+	/**
+	 * @brief Get the Cambio X object
 	 * 
 	 * @return GLfloat 
 	 */
-	GLfloat getmuevex() { return muevex; }
-	GLfloat getmuevey() { return muevey; }
-	GLfloat getmuevez() { return muevez; }
-	bool getAnimPuerta() { return animPuerta; }
-	bool getAnimPuertaRefri() { return animPuertaRefri; }
-	bool getAnimCajon() { return animCajon; }
-	bool getAnimLibro() { return animLibro; }
-	void setAnimLibro(bool val) {  animLibro = val; }
-		bool getAnimSilla() { return animSilla; }
-	void setAnimSilla(bool val) {  animSilla = val; }
 	GLfloat getCambioX() { return cambioX; }
+	/**
+	 * @brief Get the Cambio Y object
+	 * 
+	 * @return GLfloat 
+	 */
 	GLfloat getCambioY() { return cambioY; }
+	/**
+	 * @brief Get the Cambio Z object
+	 * 
+	 * @return GLfloat 
+	 */
 	GLfloat getCambioZ() { return cambioZ; }
+	/**
+	 * @brief Obtiene el valor de la camara
+	 * 
+	 * @return int 
+	 */
 	int getCamara();
 	/**
 	 * @brief Prende y apaga la luz de la linterna de camara
@@ -77,6 +129,12 @@ public:
 	 * @return GLboolean 
 	 */
 	GLboolean OnOffLight() { return statusLight; }
+	/**
+	 * @brief Get the Should Close object
+	 * 
+	 * @return true 
+	 * @return false 
+	 */
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
 	/**
@@ -87,10 +145,15 @@ public:
 	 */
 	bool* getsKeys() { return keys; }
 	/**
-	 * @brief 
+	 * @brief swapbuffer
 	 * 
 	 */
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
+	/**
+	 * @brief Valor de pausa de la camara
+	 * 
+	 * @return GLboolean 
+	 */
 	GLboolean getPauseCamera() { return camara_pausa; }
 	
 	~Window();
@@ -108,9 +171,6 @@ private:
 	GLfloat xChange;
 	GLfloat yChange;
 	GLboolean statusLight;
-	GLfloat muevex;
-	GLfloat muevey;
-	GLfloat muevez;
 	GLfloat girox;
 	GLfloat giroy;
 	GLfloat giroz;

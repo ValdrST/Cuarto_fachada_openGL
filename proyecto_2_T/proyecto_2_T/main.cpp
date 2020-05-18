@@ -483,29 +483,29 @@ int main()
 	Material_opaco = Material(0.3f, 4);
 	std::vector<std::thread> threads;
 	Mundo = new Model(); 
-	Mundo->LoadModel("Models/mundo.obj");
+	Mundo->LoadModel("Models/mundo.assbin");
 	Faro = new Model();
-	Faro->LoadModel("Models/faro.obj");
+	Faro->LoadModel("Models/faro.assbin");
 	Edificio = new Model();
-	Edificio->LoadModel("Models/facha_principal.obj");
+	Edificio->LoadModel("Models/facha_principal.assbin");
 	Puerta = new Model();
-	Puerta->LoadModel("Models/puerta.obj");
+	Puerta->LoadModel("Models/puerta.assbin");
 	Cuartos = new Model();
-	Cuartos->LoadModel("Models/Cuartos.obj");
+	Cuartos->LoadModel("Models/Cuartos.assbin");
 	Cajon = new Model();
-	Cajon->LoadModel("Models/cajon.obj");
+	Cajon->LoadModel("Models/cajon.assbin");
 	Espejo = new Model();
-	Espejo->LoadModel("Models/Espejo.obj");
+	Espejo->LoadModel("Models/Espejo.assbin");
 	Sillon = new Model();
-	Sillon->LoadModel("Models/Sillon.obj");
+	Sillon->LoadModel("Models/Sillon.assbin");
 	Libro = new Model();
-	Libro->LoadModel("Models/Libro.obj");
+	Libro->LoadModel("Models/Libro.assbin");
 	Puerta_refri = new Model();
-	Puerta_refri->LoadModel("Models/Puerta_refri.obj");
+	Puerta_refri->LoadModel("Models/Puerta_refri.assbin");
 	Silla_sup = new Model();
-	Silla_sup->LoadModel("Models/Silla_sup.obj");
+	Silla_sup->LoadModel("Models/Silla_sup.assbin");
 	Silla_inf = new Model();
-	Silla_inf->LoadModel("Models/Silla_inf.obj");
+	Silla_inf->LoadModel("Models/Silla_inf.assbin");
 	//luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
